@@ -2,6 +2,8 @@ package TestDemo;
 
 import Game.Person;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 
 public class TestDemo2 {
@@ -23,6 +25,20 @@ public class TestDemo2 {
     public static void main(String[] args) {
         //用反射，通过Class对象的newInstance()方法来取得类的实例化对象
         Class dateClass = Date.class;
+        try {
+            Constructor constructor = dateClass.getConstructor(long.class);
+            try {
+                Object object = constructor.newInstance(30);
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
         Date date = new Date();
         try {
             Object object = dateClass.newInstance();//object在编译时是Object类型，（实际上）运行时是Date类型
