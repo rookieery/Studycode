@@ -79,7 +79,7 @@ public class TestDemo7 {
         int t = 1;
         while (i < level) {
             if (i >= level - 1) {
-                sp.append("-");
+                sp.append("_");
                 i++;
                 continue;
             }
