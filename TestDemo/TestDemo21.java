@@ -52,11 +52,11 @@ class MyTickRunnable implements Runnable {
     @Override
     public void run() {
         while (this.tick > 0) {
-//            try {
-//                Thread.sleep(1000);
-//            } catch (InterruptedException e) {
-//                e.printStackTrace();
-//            }
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 //            Thread.currentThread().getName() 那个线程在执行代码 ，返回线程的名字
             synchronized (this) {
                 if (this.tick > 0) {
