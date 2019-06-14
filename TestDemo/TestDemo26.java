@@ -1,12 +1,13 @@
 package TestDemo;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
-
+//线程池
 public class TestDemo26 {
     private static void code1() {
         ThreadPoolExecutor executor = new ThreadPoolExecutor(
@@ -85,8 +86,43 @@ public class TestDemo26 {
 //        }
         //2.定时检查
     }
+    private static void code3() {
+        //ExecutorService executorService = Executors.newFixedThreadPool(5);
+        //ExecutorService executorService = Executors.newSingleThreadExecutor();
+//        ExecutorService executorService = Executors.newCachedThreadPool();
+//        for (int i = 0;; i++) {
+//            try {
+//                Thread.sleep(500);//睡一会也都变成顺序线程了
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//            executorService.execute(new Runnable() {
+//                @Override
+//                public void run() {
+//                    System.out.println(Thread.currentThread().getName() + " " + LocalDateTime.now().toString());
+//                }
+//            });
+//        }
+        //固定延迟执行任务
+        ScheduledExecutorService service = Executors.newScheduledThreadPool(5);
+        service.scheduleWithFixedDelay(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println(Thread.currentThread().getName() + " " +
+                        LocalDateTime.now().format(DateTimeFormatter.ofPattern
+                                ("yyyy-MM-dd " + "HH:mm:ss")));
+            }
+        }, 0L, 2L, TimeUnit.SECONDS);
+        //在某个时间点执行任务
+        System.out.println(Thread.currentThread().getName() + " " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd " +
+                "HH:mm:ss")));
 
+        service.schedule(() -> {
+            System.out.println(Thread.currentThread().getName() + " " + LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd " +
+                    "HH:mm:ss")));
+        }, 2L, TimeUnit.SECONDS);
+    }
     public static void main(String[] args) {
-        code2();
+        code3();
     }
 }
