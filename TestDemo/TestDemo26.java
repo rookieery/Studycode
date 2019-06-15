@@ -3,6 +3,7 @@ package TestDemo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.*;
@@ -66,20 +67,26 @@ public class TestDemo26 {
 //        } catch (InterruptedException e) {
 //            e.printStackTrace();
 //        }
-//        for (Future aFutureList : futureList) {
-//            System.out.println(aFutureList);
-//        }
-        //List<Runnable> runnables = executor.shutdownNow();
-        executor.shutdown();
-        //System.out.println(runnables.size());
-        System.out.println(executor.isShutdown());
-        System.out.println(executor.isTerminated());
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+        for (int i = 0; i < futureList.size(); i++) {
+            try {
+                System.out.println(futureList.get(i).get());//需要使用future的get方法来获取储存的内容
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
         }
-        System.out.println(executor.isTerminated());
+        //List<Runnable> runnables = executor.shutdownNow();
+//        executor.shutdown();
+//        //System.out.println(runnables.size());
+//        System.out.println(executor.isShutdown());
+//        System.out.println(executor.isTerminated());
+//        try {
+//            Thread.sleep(2000);
+//        } catch (InterruptedException e) {
+//            e.printStackTrace();
+//        }
+//        System.out.println(executor.isTerminated());
         //1.循环
 //        while (executor.isTerminated()) {
 //            break;
@@ -123,6 +130,6 @@ public class TestDemo26 {
         }, 2L, TimeUnit.SECONDS);
     }
     public static void main(String[] args) {
-        code3();
+        code2();
     }
 }
