@@ -60,8 +60,7 @@ public class TsetDemo6 {
         System.out.println(returnName);
     }
 
-    public static void main(String[] args) {
-        part1();
+    private static void code2() {
         Class cls = Student.class;
         System.out.println("获取所有属性");
         Field[] fields = cls.getFields();
@@ -94,7 +93,9 @@ public class TsetDemo6 {
             e.printStackTrace();
         }
         System.out.println(student);
-
+    }
+    public static void main(String[] args) {
+        part1();
     }
 }
 class Person {

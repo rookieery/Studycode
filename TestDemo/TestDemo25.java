@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 import java.util.UUID;
-//生产者消费者问题
+//生产者与消费者模型--wait,notify
 class Goods {
     private String name;
     private String id;
@@ -87,7 +87,7 @@ class Producer implements Runnable {
 }
 
 class Consumer implements Runnable {
-    Queue<Goods> queue;
+    private Queue<Goods> queue;
 
     public Consumer(Queue<Goods> queue) {
         this.queue = queue;
@@ -165,35 +165,36 @@ public class TestDemo25 {
         //4.command line arguments 命令行参数  java Main.class  a b c
         //5.数据库  mysql (JDBC)
         //6.System.env("")
-        int defaultProducers = 5;
-        int defaultConsumers = 5;
-        int producers = defaultProducers;
-        int consumers = defaultConsumers;
-        if (args.length == 1) {
-            try {
-                producers = Integer.parseInt(args[0]);
-            } catch (NumberFormatException e) {
-                producers = defaultProducers;
-            }
-        }
-        if (args.length == 2) {
-            try {
-                producers = Integer.parseInt(args[0]);
-            } catch (NumberFormatException e) {
-                producers = defaultProducers;
-            }
-            try {
-                consumers = Integer.parseInt(args[1]);
-            } catch (NumberFormatException e) {
-                consumers = defaultConsumers;
-            }
-        }
-        if (producers <= 0) {
-            producers = defaultProducers;//开发者，需求
-        }
-        if (consumers <= 0) {
-            consumers = defaultConsumers;
-        }
-        ProducerConsumerLauncher.run(producers, consumers);
+        code1();
+//        int defaultProducers = 5;
+//        int defaultConsumers = 5;
+//        int producers = defaultProducers;
+//        int consumers = defaultConsumers;
+//        if (args.length == 1) {
+//            try {
+//                producers = Integer.parseInt(args[0]);
+//            } catch (NumberFormatException e) {
+//                producers = defaultProducers;
+//            }
+//        }
+//        if (args.length == 2) {
+//            try {
+//                producers = Integer.parseInt(args[0]);
+//            } catch (NumberFormatException e) {
+//                producers = defaultProducers;
+//            }
+//            try {
+//                consumers = Integer.parseInt(args[1]);
+//            } catch (NumberFormatException e) {
+//                consumers = defaultConsumers;
+//            }
+//        }
+//        if (producers <= 0) {
+//            producers = defaultProducers;//开发者，需求
+//        }
+//        if (consumers <= 0) {
+//            consumers = defaultConsumers;
+//        }
+//        ProducerConsumerLauncher.run(producers, consumers);
     }
 }
