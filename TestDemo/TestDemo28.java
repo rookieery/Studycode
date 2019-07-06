@@ -1,5 +1,9 @@
 package TestDemo;
 
+import java.io.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -123,20 +127,94 @@ class Singleton6 {
     }
 }
 
+//静态代码块,效果和饿汉式一样
+class Singleton7 {
+    private static Singleton7 instance;
+
+    private Singleton7() {
+
+    }
+
+    static {
+        instance = new Singleton7();
+    }
+
+    public static Singleton7 getInstance() {
+        return instance;
+    }
+}
+
+//双重检查
+class Singleton9 {
+    private volatile static Singleton9 instance;
+
+    private Singleton9() {
+
+    }
+
+    public static Singleton9 getInstance() {
+        if (instance == null) {
+            synchronized (Singleton9.class) {
+                if (instance == null) {
+                    instance = new Singleton9();
+                }
+            }
+        }
+        return instance;
+    }
+}
+
+enum Singleton {
+    instance;
+
+    Singleton() {
+
+    }
+}
+
 class RunnableTest implements Runnable {
 
     @Override
     public void run() {
-        System.out.println(Singleton6.getInstance().hashCode());
+        Class cls = Singleton9.class;
+        try {
+            Constructor constructor = cls.getDeclaredConstructor();
+            constructor.setAccessible(true);
+            try {
+                System.out.println(constructor.newInstance().hashCode());
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
     }
 }
 
 public class TestDemo28 {
     public static void main(String[] args) {
-        Runnable runnable = new RunnableTest();
-        new Thread(runnable, "t1").start();
-        new Thread(runnable, "t2").start();
-        new Thread(runnable, "t3").start();
-        new Thread(runnable, "t4").start();
+        //Singleton8.ser();
+        System.out.println(Singleton.instance.hashCode());
+        //Singleton singleton = new Singleton();默认私有的构造方法
+        Class clz =  Singleton.class;
+        try {
+            Constructor constructor = clz.getDeclaredConstructor();
+            constructor.setAccessible(true);
+            try {
+                System.out.println(constructor.newInstance().hashCode());
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
     }
 }

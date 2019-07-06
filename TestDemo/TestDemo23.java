@@ -16,8 +16,8 @@ class MyThread1 implements Runnable {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            ticketLock.lock();
             try {
+                ticketLock.lock();
                 if (this.ticket > 0) {
                     System.out.println(Thread.currentThread().getName() + "买了一张票，剩余" + --this.ticket);
                 }
@@ -115,7 +115,7 @@ class MyThread5 implements Runnable {
 
 public class TestDemo23 {
     public static void main(String[] args) {
-        MyThread5 myThread1 = new MyThread5();
+        MyThread1 myThread1 = new MyThread1();
         Thread thread1 = new Thread(myThread1, "黄牛A");
         Thread thread2 = new Thread(myThread1, "黄牛B");
         thread1.start();
