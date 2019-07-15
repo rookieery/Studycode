@@ -1,5 +1,5 @@
 package Exercises;
-
+//获取父类的类名
 class A {
 
 }
